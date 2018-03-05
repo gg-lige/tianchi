@@ -20,16 +20,17 @@ FILE_2017 = 'E:\\competition\\tianchi\\20171105_quarterfinals\\quarterfinals_201
 # FILE_cadastral2015 = '../../preliminary/cadastral2015.tif'
 # FILE_tinysample = '../../preliminary/tinysample.tif'
 
-im_2015 = tiff.imread(FILE_2015).transpose([1, 2, 0])  #参数为维度索引
+#tifffile的图片的读取顺序height×width×channels。R,G,B，近红 按照波段来获取。
+im_2015 = tiff.imread(FILE_2015).transpose([1, 2, 0])  #参数为维度索引,(高，宽，通道数4)
 im_2017 = tiff.imread(FILE_2017).transpose([1, 2, 0])
 
 # im_tiny = tiff.imread(FILE_tinysample)
 # im_cada = tiff.imread(FILE_cadastral2015)
-print(im_2015.shape)  #查看形状，表明是一个a*b*c 的矩阵
+print(im_2015.shape)  #查看形状，表明是一个4000*15106*4的矩阵
 print(im_2017.shape)
 
 
-
+#将图片的像素值放缩到[0,1]之间
 def scale_percentile(matrix):
     w, h, d = matrix.shape
     matrix = np.reshape(matrix, [w * h, d]).astype(np.float64)
